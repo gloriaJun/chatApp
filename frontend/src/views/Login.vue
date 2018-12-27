@@ -7,7 +7,7 @@
       xs12
     >
       <login-form
-        @submit-login="login"
+        @connect="connect"
       ></login-form>
     </v-flex>
   </v-layout>
@@ -21,8 +21,11 @@ export default {
     LoginForm,
   },
   methods: {
-    login(username) {
+    connect(username) {
       console.log(username);
+      // need to check username is duplicate or not
+
+      // after login, go chatting room list page
     },
   },
 };

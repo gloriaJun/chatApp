@@ -18,7 +18,7 @@
       block
       @click="submit"
     >
-      Login
+      Connect
     </v-btn>
   </v-form>
 </template>
@@ -35,7 +35,7 @@ export default {
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        this.$emit('submit-login', { username: this.username });
+        this.$emit('connect', this.username);
       }
     },
   },
