@@ -1,23 +1,26 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>open_in_new</v-icon>
-      </v-btn>
-    </v-toolbar>
-
     <v-content>
-      <router-view/>
+      <v-container
+        fluid
+        fill-height
+      >
+        <v-layout
+          align-center
+          justify-center
+        >
+          <v-card
+            width="400"
+            height="600"
+          >
+            <v-container
+              fill-height
+            >
+              <router-view/>
+            </v-container>
+          </v-card>
+        </v-layout>
+      </v-container>
     </v-content>
   </v-app>
 </template>
@@ -26,10 +29,12 @@
 
 export default {
   name: 'App',
-  data () {
+  data() {
     return {
-      //
-    }
-  }
-}
+    };
+  },
+};
 </script>
+
+<style lang="stylus">
+</style>
