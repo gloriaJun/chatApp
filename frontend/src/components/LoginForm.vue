@@ -8,7 +8,8 @@
       :rules="usernameRules"
       name="login"
       label="Username"
-      placeholder="example"
+      placeholder="Input Username"
+      solo
       required
     ></v-text-field>
 
@@ -16,6 +17,7 @@
       :disabled="!valid"
       color="primary"
       block
+      large
       @click="submit"
     >
       Connect

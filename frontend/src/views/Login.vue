@@ -2,9 +2,10 @@
   <v-layout
     align-center
     justify-center
+    fill-height
   >
     <v-flex
-      xs12
+      xs8
     >
       <login-form
         @connect="connect"
@@ -30,3 +31,6 @@ export default {
   },
 };
 </script>
+
+<style>
+</style>

@@ -1,27 +1,21 @@
 <template>
-  <v-app>
-    <v-content>
-      <v-container
-        fluid
-        fill-height
+  <v-app id="chat">
+    <v-layout
+      row
+      align-center
+      justify-center
+    >
+      <v-flex
+        xs12
+        sm6
       >
-        <v-layout
-          align-center
-          justify-center
+        <v-card
+          class="chat-wrapper"
         >
-          <v-card
-            width="400"
-            height="600"
-          >
-            <v-container
-              fill-height
-            >
-              <router-view/>
-            </v-container>
-          </v-card>
-        </v-layout>
-      </v-container>
-    </v-content>
+          <router-view/>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-app>
 </template>
 
@@ -29,12 +23,5 @@
 
 export default {
   name: 'App',
-  data() {
-    return {
-    };
-  },
 };
 </script>
-
-<style lang="stylus">
-</style>
