@@ -28,7 +28,7 @@ export default {
       console.log(username);
       // need to check username is duplicate or not
 
-      // after login, go chatting room list page
+      // after connected, go chatting room list page
       this.$router.replace(routes.chatRoomList);
     },
   },

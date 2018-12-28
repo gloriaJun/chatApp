@@ -4,8 +4,8 @@ const CHAT_ROOM = '/rooms/:id';
 
 const routes = {
   login: LOGIN,
-  chatRoomList: CHAT_ROOM,
-  chatRoom: CHAT_ROOM_LIST,
+  chatRoomList: CHAT_ROOM_LIST,
+  chatRoom: CHAT_ROOM,
 };
 
 export default routes;

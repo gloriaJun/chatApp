@@ -5,7 +5,6 @@ import routes from './routes';
 
 import Login from './views/Login.vue';
 
-import ChatRoomLayout from './layouts/ChatRoomLayout.vue';
 import ChatRoomList from './views/ChatRoomList.vue';
 import ChatRoom from './views/ChatRoom.vue';
 
@@ -21,17 +20,11 @@ export default new Router({
     },
     {
       path: routes.chatRoomList,
-      component: ChatRoomLayout,
-      children: [
-        {
-          path: routes.chatRoomList,
-          component: ChatRoomList,
-        },
-        {
-          path: routes.chatRoom,
-          component: ChatRoom,
-        },
-      ],
+      component: ChatRoomList,
+    },
+    {
+      path: routes.chatRoom,
+      component: ChatRoom,
     },
   ],
 });

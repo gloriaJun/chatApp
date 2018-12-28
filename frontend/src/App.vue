@@ -1,19 +1,15 @@
 <template>
-  <v-app id="chat">
+  <v-app id="chat-app">
     <v-layout
-      row
       align-center
       justify-center
     >
       <v-flex
         xs12
         sm6
+        class="chat-wrapper"
       >
-        <v-card
-          class="chat-wrapper"
-        >
-          <router-view/>
-        </v-card>
+        <router-view/>
       </v-flex>
     </v-layout>
   </v-app>
