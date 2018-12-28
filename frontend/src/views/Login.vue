@@ -1,5 +1,6 @@
 <template>
   <v-layout
+    class="login-page"
     align-center
     justify-center
     fill-height
@@ -15,6 +16,7 @@
 </template>
 
 <script>
+import routes from '@/routes';
 import LoginForm from '@/components/LoginForm.vue';
 
 export default {
@@ -27,6 +29,7 @@ export default {
       // need to check username is duplicate or not
 
       // after login, go chatting room list page
+      this.$router.replace(routes.chatRoomList);
     },
   },
 };

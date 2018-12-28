@@ -2,6 +2,7 @@
   <v-form
     ref="form"
     v-model="valid"
+    @submit.prevent="submit"
   >
     <v-text-field
       v-model="username"
@@ -14,11 +15,11 @@
     ></v-text-field>
 
     <v-btn
+      type="submit"
       :disabled="!valid"
       color="primary"
       block
       large
-      @click="submit"
     >
       Connect
     </v-btn>
