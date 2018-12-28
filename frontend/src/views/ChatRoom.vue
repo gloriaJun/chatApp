@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="chat-room--wrapper"
+    class="chat-room--wrapper chat-room"
   >
     <v-toolbar
       class="chat-room--toolbar"
@@ -33,7 +33,16 @@
       </v-btn>
     </v-toolbar>
 
-    <v-card-actions>
+    <div class="chat-room--messages">
+    </div>
+
+    <v-card-actions
+      class="chat-room--input"
+    >
+      <v-text-field
+        v-model="message"
+        solo
+      ></v-text-field>
     </v-card-actions>
   </v-card>
 </template>
@@ -49,6 +58,7 @@ export default {
   data: () => ({
     title: 'Chatting',
     roomName: '',
+    message: '',
   }),
   methods: {
     search() {

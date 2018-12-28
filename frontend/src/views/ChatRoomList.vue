@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="chat-room--wrapper"
+    class="chat-room--wrapper chat-room--list"
   >
     <v-toolbar
       class="chat-room--toolbar"
