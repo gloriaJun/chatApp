@@ -23,7 +23,7 @@ export default new Router({
       component: ChatRoomList,
     },
     {
-      path: routes.chatRoom,
+      path: routes.chatRoom(),
       component: ChatRoom,
     },
   ],
