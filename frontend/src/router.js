@@ -5,7 +5,7 @@ import routes from './routes';
 
 import Login from './views/Login.vue';
 
-import ChatRoomList from './views/ChatRoomList.vue';
+import ChatHome from './views/ChatHome.vue';
 import ChatRoom from './views/ChatRoom.vue';
 
 Vue.use(Router);
@@ -19,8 +19,8 @@ export default new Router({
       component: Login,
     },
     {
-      path: routes.chatRoomList,
-      component: ChatRoomList,
+      path: routes.chatHome,
+      component: ChatHome,
     },
     {
       path: routes.chatRoom(),

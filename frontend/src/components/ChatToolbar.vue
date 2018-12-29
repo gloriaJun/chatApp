@@ -1,8 +1,13 @@
 <template>
   <v-toolbar
+    class="chat-toolbar"
     color="amber darken-3"
+    height="50px"
     dark
   >
+
+    <slot name="prepend"></slot>
+
     <v-toolbar-title
       class="text-xs-center"
     >
@@ -18,26 +23,18 @@
       <v-icon>search</v-icon>
     </v-btn>
 
-    <v-btn
-      icon
-      @click="add"
-    >
-      <v-icon>{{ addIcon }}</v-icon>
-    </v-btn>
+    <slot name="append"></slot>
+
   </v-toolbar>
 </template>
 
 <script>
 export default {
-  name: 'ChatRoomToolbar',
+  name: 'ChatToolbar',
   props: {
     title: {
       type: String,
       default: '',
-    },
-    addIcon: {
-      type: String,
-      default: 'group_add',
     },
   },
   data: () => ({
@@ -45,9 +42,6 @@ export default {
   methods: {
     search() {
       this.$emit('search');
-    },
-    add() {
-      this.$emit('add');
     },
   },
 };

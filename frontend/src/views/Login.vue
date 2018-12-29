@@ -1,18 +1,25 @@
 <template>
-  <v-layout
+  <v-container
     class="login-page"
-    align-center
-    justify-center
+    fluid
     fill-height
   >
+
+  <v-layout
+    align-center
+    justify-center
+  >
     <v-flex
-      xs8
+      xs12
+      sm6
+      md4
     >
       <login-form
         @connect="connect"
       ></login-form>
     </v-flex>
   </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -29,11 +36,8 @@ export default {
       // need to check username is duplicate or not
 
       // after connected, go chatting room list page
-      this.$router.replace(routes.chatRoomList);
+      this.$router.replace(routes.chatHome);
     },
   },
 };
 </script>
-
-<style>
-</style>

@@ -1,59 +1,59 @@
 <template>
-  <v-card
-    class="chat-room--wrapper chat-room"
+  <div
+    class="chat-room-page"
   >
-    <v-toolbar
-      class="chat-room--toolbar"
-      dark
+
+    <chat-toolbar
+      :title="`${title} : ${roomName}`"
+      @search="search"
     >
-      <v-btn icon>
+      <v-btn
+        slot="prepend"
+        icon
+        @click="onClickGoRoomList"
+      >
         <v-icon>arrow_back</v-icon>
       </v-btn>
 
-      <v-toolbar-title
-        class="text-xs-center"
-      >
-        {{ title }} : {{ roomName }}
-      </v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
       <v-btn
-        icon
-        @click="search"
-      >
-        <v-icon>search</v-icon>
-      </v-btn>
-
-      <v-btn
+        slot="append"
         icon
         @click="add"
       >
         <v-icon>person_add</v-icon>
       </v-btn>
-    </v-toolbar>
+    </chat-toolbar>
 
-    <div class="chat-room--messages">
-    </div>
-
-    <v-card-actions
-      class="chat-room--input"
+    <v-layout
+      row
     >
-      <v-text-field
-        v-model="message"
-        solo
-      ></v-text-field>
-    </v-card-actions>
-  </v-card>
+      <v-flex
+        xs12
+      >
+        <div
+          class="chat-messages-container"
+        >
+          <chat-messages></chat-messages>
+        </div>
+
+        <chat-text-input></chat-text-input>
+      </v-flex>
+    </v-layout>
+
+  </div>
 </template>
 
 <script>
-// import routes from '@/routes';
-// import ChatRoomToolbar from '@/components/ChatRoomToolbar.vue';
+import routes from '@/routes';
+import ChatToolbar from '@/components/ChatToolbar.vue';
+import ChatMessages from '@/components/ChatMessages.vue';
+import ChatTextInput from '@/components/ChatTextInput.vue';
 
 export default {
   components: {
-    // ChatRoomToolbar,
+    ChatToolbar,
+    ChatMessages,
+    ChatTextInput,
   },
   data: () => ({
     title: 'Chatting',
@@ -66,6 +66,9 @@ export default {
     },
     add() {
       // this.$emit('add');
+    },
+    onClickGoRoomList() {
+      this.$router.push(routes.chatHome);
     },
   },
 };
