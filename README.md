@@ -4,7 +4,8 @@
 ## TODO
 
 ### 2108.12.29
-- [x] 메시지 전달 기능
+- 로그인 api 연동
+- 채팅방 리스트 get api
 
 ### 프론트앤드
 
@@ -63,6 +64,9 @@
 # build
 
 # run
+
+# unit test
+yarn run test:unit
 ```
 
 ### Requirement <a id="requirement"></a>
