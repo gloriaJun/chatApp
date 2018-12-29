@@ -3,7 +3,7 @@
 
 ## TODO
 
-### 2108.12.29
+### 2108.12.30
 - 로그인 api 연동
 - 채팅방 리스트 get api
 
@@ -42,7 +42,7 @@
 #### Backend
 
 - Node.js
-- websocket
+- Socket.io
 
 #### Frontend
 
@@ -111,12 +111,16 @@ yarn run test:unit
 
 > 왜 아래와 같이 구분하여 구현하였는 지에 대한 배경에 대해 간략히 정리해두기...
 
-- REST API로 구현할 부분
-  - 사용자 접속
-  - 채팅방 리스트
+- [Socket.io](https://socket.io/)를 이용하여 서비스를 구현한다.
 
-- websocket으로 구현할 부분
-  - 채팅방에 접속하는 시점부터??
+> websocket - html5부터 지원
+> pooling 방식은 ~~~
+
+```
+Why WebSockets instead of HTTP(S)?
+With WebSockets you can establish a persistent connection, which allows for bidirectional communication between client and server. Nowadays, you will mostly find REST based APIs on the web, which are built upon HTTP. These APIs are consumed as follows: The client requests a page or resource and the server responds (request-respone). Thus, using WebSockets over HTTP can have the following advantages:
+```
+
 
 ### 개선할 부분.. <a id="more"></a>
 
