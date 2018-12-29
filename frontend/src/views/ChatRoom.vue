@@ -33,10 +33,28 @@
         <div
           class="chat-messages-container"
         >
-          <chat-messages></chat-messages>
+          <chat-messages
+          ></chat-messages>
         </div>
 
-        <chat-text-input></chat-text-input>
+        <v-layout
+          class="chat-message-input"
+        >
+          <v-flex xs1>
+            <v-btn
+              icon
+            >
+              <v-icon>add_photo_alternate</v-icon>
+            </v-btn>
+          </v-flex>
+          <v-flex xs11>
+            <chat-text-input
+              placeholder="Input Message"
+              @send="messageSend"
+            ></chat-text-input>
+          </v-flex>
+        </v-layout>
+
       </v-flex>
     </v-layout>
 
@@ -66,6 +84,9 @@ export default {
     },
     add() {
       // this.$emit('add');
+    },
+    messageSend(message) {
+      console.log(message);
     },
     onClickGoRoomList() {
       this.$router.push(routes.chatHome);
