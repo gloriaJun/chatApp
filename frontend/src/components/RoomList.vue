@@ -4,7 +4,7 @@
       v-for="item in items"
       :key="item.id"
       avatar
-      @click='onClickList'
+      @click='onClickList(item)'
     >
       <v-list-tile-avatar
         color="indigo"
@@ -39,8 +39,8 @@ export default {
   data: () => ({
   }),
   methods: {
-    onClickList(id) {
-      this.$emit('click-room', id);
+    onClickList(item) {
+      this.$emit('click-room', item.id);
     },
   },
 };
