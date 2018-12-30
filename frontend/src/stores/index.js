@@ -9,14 +9,19 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   plugins: [createLogger()],
   state: {
-    username: '',
+    username: 'test',
+    messages: [],
   },
   getters: {
     username: state => state.username,
+    messages: state => state.messages,
   },
   mutations: {
     [types.SET_USER](state, payload) {
       state.username = payload;
+    },
+    [types.SET_MESSAGES](state, payload) {
+      state.messages.push(payload);
     },
   },
   actions: {

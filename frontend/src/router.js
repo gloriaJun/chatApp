@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import routes from './routes';
+import routes from './constants/routes';
 
 import Login from './views/Login.vue';
 

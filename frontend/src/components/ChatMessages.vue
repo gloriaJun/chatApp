@@ -1,20 +1,28 @@
 <template>
-  <v-timeline>
-    <v-timeline-item
-      v-for="n in 4"
-      :key="n"
-      color="red lighten-2"
-      large
-    >
-      <span slot="opposite">Tus eu perfecto</span>
-      <v-card class="elevation-2">
-        <v-card-title class="headline">Lorem ipsum</v-card-title>
-        <v-card-text>
-          Lorem ipsum dolor sit amet, no nam oblique veritus.
-        </v-card-text>
-      </v-card>
-    </v-timeline-item>
-  </v-timeline>
+  <v-list two-line>
+    <template v-for="(item, index) in items">
+      <v-list-tile
+        :key="key"
+        avatar
+        ripple
+        @click="toggle(index)"
+      >
+        <v-list-tile-content>
+          <v-list-tile-title>{{ item.username }}</v-list-tile-title>
+          <v-list-tile-sub-title>{{ item.message }}</v-list-tile-sub-title>
+        </v-list-tile-content>
+
+        <v-list-tile-action>
+          <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
+        </v-list-tile-action>
+
+      </v-list-tile>
+      <v-divider
+        v-if="index + 1 < items.length"
+        :key="index"
+      ></v-divider>
+    </template>
+  </v-list>
 </template>
 
 <script>

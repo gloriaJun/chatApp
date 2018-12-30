@@ -34,6 +34,7 @@
           class="chat-messages-container"
         >
           <chat-messages
+            :items="messages"
           ></chat-messages>
         </div>
 
@@ -62,7 +63,10 @@
 </template>
 
 <script>
-import routes from '@/routes';
+import routes from '@/constants/routes';
+import socketEventName from '@/constants/socket-event-name';
+import types from '@/stores/types';
+
 import ChatToolbar from '@/components/ChatToolbar.vue';
 import ChatMessages from '@/components/ChatMessages.vue';
 import ChatTextInput from '@/components/ChatTextInput.vue';
@@ -76,8 +80,18 @@ export default {
   data: () => ({
     title: 'Chatting',
     roomName: '',
-    message: '',
   }),
+  computed: {
+    messages() {
+      return this.$store.getters.messages;
+    },
+  },
+  created() {
+    this.$socket.on(socketEventName.chat, (data) => {
+      console.log('broad', data);
+      this.pushMessage(data);
+    });
+  },
   methods: {
     search() {
       // this.$emit('search');
@@ -86,10 +100,19 @@ export default {
       // this.$emit('add');
     },
     messageSend(message) {
-      console.log(message);
+      const data = {
+        username: this.$store.getters.username,
+        message,
+      };
+
+      this.pushMessage(data);
+      this.$socket.emit(socketEventName.chat, data);
     },
     onClickGoRoomList() {
       this.$router.push(routes.chatHome);
+    },
+    pushMessage(data) {
+      this.$store.commit(types.SET_MESSAGES, data);
     },
   },
 };

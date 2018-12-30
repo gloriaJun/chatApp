@@ -6,10 +6,15 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 
 /**
+ * sockets event name of constants
+ */
+const socketEventName = require('./socket-event-name').default;
+
+/**
  * set env configuration
  */
 require('dotenv').config();
-const PORT = process.env.APP_PORT || 4000;
+const PORT = process.env.SOCKET_PORT || 4000;
 
 
 /**
@@ -28,15 +33,24 @@ app.use(morgan('tiny'));
 io.on('connection', (socket) => {
   console.log('socket connected');
 
-  socket.on('disconnect', () => {
-    console.log('socket disconnected');
+  socket.on(socketEventName.chat, (data) => {
+    console.log('data : ', data);
+
+    // socket.broadcast.emit는 나를 제외한 모두에게 전달
+    socket.broadcast.emit(socketEventName.chat, data);
+    // 걍 모두에게 전달
+    // io.emit(socketEventName.chat, data);
   });
+
+  // socket.on('disconnect', () => {
+  //   console.log('socket disconnected');
+  // });
 });
 
-app.get('/', (req, res) => {
-  console.log('hi');
-  res.send('Hellow Chating App Server');
-});
+// app.get('/', (req, res) => {
+//   console.log('hi');
+//   res.send('Hellow Chating App Server');
+// });
 
 /**
  * open server port

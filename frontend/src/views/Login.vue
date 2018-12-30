@@ -25,7 +25,7 @@
 <script>
 import types from '@/stores/types';
 
-import routes from '@/routes';
+import routes from '@/constants/routes';
 import LoginForm from '@/components/LoginForm.vue';
 
 export default {
@@ -34,8 +34,6 @@ export default {
   },
   methods: {
     connect(username) {
-      console.log(username);
-      // need to check username is duplicate or not
       this.$store.dispatch(types.LOGIN, { username });
 
       // after connected, go chatting room list page
