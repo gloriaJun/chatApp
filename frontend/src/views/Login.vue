@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import types from '@/stores/types';
+
 import routes from '@/routes';
 import LoginForm from '@/components/LoginForm.vue';
 
@@ -34,6 +36,7 @@ export default {
     connect(username) {
       console.log(username);
       // need to check username is duplicate or not
+      this.$store.dispatch(types.LOGIN, { username });
 
       // after connected, go chatting room list page
       this.$router.replace(routes.chatHome);
