@@ -77,16 +77,38 @@ export default {
     ChatMessages,
     ChatTextInput,
   },
+  props: {
+    id: {
+      type: [Number, String],
+      required: true,
+    },
+  },
   data: () => ({
     title: 'Chatting',
     roomName: '',
   }),
   computed: {
+    username() {
+      return this.$store.getters.username;
+    },
     messages() {
       return this.$store.getters.messages;
     },
   },
   created() {
+    // 채팅방에 입장하였음을 전송
+    this.$socket.emit(socketEventName.joinRoom, {
+      roomId: this.id,
+      username: this.username,
+    });
+
+    // 채팅방 접속 유저에 대한 알림
+    this.$socket.on(socketEventName.joinRoom, (data) => {
+      console.log('join', data);
+      this.pushMessage(data);
+    });
+
+    // 해당 채팅방에 대한 메시지를 응답받기 위한 이벤트 정의
     this.$socket.on(socketEventName.chat, (data) => {
       console.log('broad', data);
       this.pushMessage(data);
@@ -101,7 +123,7 @@ export default {
     },
     messageSend(message) {
       const data = {
-        username: this.$store.getters.username,
+        username: this.username,
         message,
       };
 

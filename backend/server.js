@@ -30,16 +30,32 @@ app.use(morgan('tiny'));
 /**
  * socket.io
  */
+const getRoomName = (id) => `room${id}`;
+
 io.on('connection', (socket) => {
   console.log('socket connected');
 
+  socket.on(socketEventName.joinRoom, (data) => {
+    const roomName = getRoomName(data.roomId);
+
+    socket.join(roomName);
+    socket.roomName = roomName;
+
+    // console.log(socket.adapter.rooms);
+    // console.log(io.sockets.clients());
+    // broadcast join message to member
+    io.to(roomName).emit(socketEventName.joinRoom, {
+      type: 'system',
+      message: `${data.username} joined this chatroom`,
+    });
+  });
+
   socket.on(socketEventName.chat, (data) => {
     console.log('data : ', data);
-
-    // socket.broadcast.emit는 나를 제외한 모두에게 전달
-    socket.broadcast.emit(socketEventName.chat, data);
-    // 걍 모두에게 전달
-    // io.emit(socketEventName.chat, data);
+    const room = socket.roomName;
+    if (room) {
+      socket.broadcast.to(room).emit(socketEventName.chat, data);
+    }
   });
 
   // socket.on('disconnect', () => {

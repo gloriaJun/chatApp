@@ -1,14 +1,15 @@
 <template>
-  <v-list two-line>
+  <v-list
+    class="chat-messages"
+    two-line>
     <template v-for="(item, index) in items">
       <v-list-tile
-        :key="key"
+        :key="index"
         avatar
         ripple
-        @click="toggle(index)"
       >
         <v-list-tile-content>
-          <v-list-tile-title>{{ item.username }}</v-list-tile-title>
+          <v-list-tile-title>{{ item.username }}, {{ index }}</v-list-tile-title>
           <v-list-tile-sub-title>{{ item.message }}</v-list-tile-sub-title>
         </v-list-tile-content>
 
@@ -36,7 +37,12 @@ export default {
   },
   data: () => ({
   }),
+  computed: {
+  },
   methods: {
   },
 };
 </script>
+
+<style lang="stylus">
+</style>

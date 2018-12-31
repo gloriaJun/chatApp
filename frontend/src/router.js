@@ -25,6 +25,7 @@ export default new Router({
     {
       path: routes.chatRoom(),
       component: ChatRoom,
+      props: true,
     },
   ],
 });
