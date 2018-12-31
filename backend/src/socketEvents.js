@@ -1,3 +1,5 @@
+import chatRoomModel from './model/chatRoomModel';
+
 // sockets event name of constants
 const socketEventName = require('./socket-event-name').default;
 
@@ -8,27 +10,41 @@ const EVENTS = {
 
 module.exports = function(io) {
 
-  const getRoomName = (id) => `room${id}`;
   let onLineUserList = [];
+  let roomList = [];
+
+  const getRoomName = (id) => `room${id}`;
+  const setResultData = (isSuccess, data) => {
+    return !isSuccess
+        ? {
+          isSuccess,
+          message: data,
+        }
+        : {
+          isSuccess,
+          ...data,
+        };
+
+  }
 
   io.on('connection', (socket) => {
     console.log('socket connected', socket.id);
 
-    socket.on(EVENTS.LOGIN, (userInfo, cb) => {
+    socket.on(EVENTS.LOGIN, async (userInfo, cb) => {
       const { username } = userInfo;
 
-      console.log('is dup ? : ', onLineUserList.includes(username));
       if (onLineUserList.includes(username)) {
-        return cb({
-          resultCode: -1,
-          message: 'Already used username.',
-        });
+        return cb(setResultData(false, 'Already used username.'));
       }
 
       socket.username = username;
       onLineUserList.push(username);
 
-      return cb(null);
+      console.log(onLineUserList);
+
+      return cb(setResultData(true, {
+        data: await chatRoomModel.getChatRooms()
+      }));
     });
 
     // socket.on(socketEventName.login, (data) => {
@@ -71,5 +87,24 @@ module.exports = function(io) {
     //     onLineUserList = onLineUserList.filter(item => item !== username);
     //   }
     // });
+
+    // client.on('join', handleJoin)
+    //
+    // client.on('leave', handleLeave)
+    //
+    // client.on('message', handleMessage)
+    //
+    // client.on('chatrooms', handleGetChatrooms)
+    //
+    // client.on('availableUsers', handleGetAvailableUsers)
+    // client.on('disconnect', function () {
+    //   console.log('client disconnect...', client.id)
+    //   handleDisconnect()
+    // })
+    //
+    // client.on('error', function (err) {
+    //   console.log('received error from client:', client.id)
+    //   console.log(err)
+    // })
   });
 };

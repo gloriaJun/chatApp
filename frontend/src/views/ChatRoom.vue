@@ -134,7 +134,7 @@ export default {
       this.$router.push(routes.chatHome);
     },
     pushMessage(data) {
-      this.$store.commit(types.SET_MESSAGES, data);
+      this.$store.commit(types.PUSH_MESSAGE, data);
     },
   },
 };

@@ -16,7 +16,6 @@ const PORT = process.env.SOCKET_PORT || 4000;
  */
 require('./socketEvents')(io);
 
-
 /**
  * middleware
  * --> Is important define order??
@@ -26,11 +25,6 @@ app.use(helmet());
 app.use(cors());
 // for logging
 app.use(morgan('tiny'));
-
-// app.get('/', (req, res) => {
-//   console.log('hi');
-//   res.send('Hellow Chating App Server');
-// });
 
 /**
  * open server port

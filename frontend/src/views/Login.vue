@@ -51,11 +51,15 @@ export default {
 
       this.errorMessage = '';
 
-      socketEvents.login(data, (err) => {
-        if (err) {
-          this.errorMessage = err.message;
+      socketEvents.login(data, (result) => {
+        if (!result.isSuccess) {
+          console.log(result);
+          this.errorMessage = result.message;
         } else {
-          this.$store.dispatch(types.LOGIN, data);
+          this.$store.dispatch(types.LOGIN, {
+            ...data,
+            rooms: Array.from(result.data),
+          });
 
           // after connected, go chatting room list page
           this.$router.replace(routes.chatHome);

@@ -10,23 +10,29 @@ export default new Vuex.Store({
   plugins: [createLogger()],
   state: {
     username: 'test',
+    rooms: [],
     messages: [],
   },
   getters: {
     username: state => state.username,
+    rooms: state => state.rooms,
     messages: state => state.messages,
   },
   mutations: {
     [types.SET_USER](state, payload) {
       state.username = payload;
     },
-    [types.SET_MESSAGES](state, payload) {
+    [types.PUSH_MESSAGE](state, payload) {
       state.messages.push(payload);
+    },
+    [types.SET_ROOMS](state, payload) {
+      state.rooms = payload;
     },
   },
   actions: {
     [types.LOGIN]({ commit }, payload) {
       commit(types.SET_USER, payload.username);
+      commit(types.SET_ROOMS, payload.rooms);
     },
   },
 });

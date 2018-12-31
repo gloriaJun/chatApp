@@ -23,7 +23,7 @@
         xs12
       >
         <room-list
-          :items="items"
+          :items="rooms"
           @click-room="onClickRoom"
         ></room-list>
       </v-flex>
@@ -45,24 +45,12 @@ export default {
   },
   data: () => ({
     title: 'Chatting List',
-    items: [
-      {
-        id: 1,
-        name: 'lily',
-        members: 10,
-      },
-      {
-        id: 2,
-        name: 'sky',
-        members: 0,
-      },
-      {
-        id: 3,
-        name: 'japan',
-        members: 2,
-      },
-    ],
   }),
+  computed: {
+    rooms() {
+      return this.$store.getters.rooms;
+    },
+  },
   methods: {
     onClickRoom(id) {
       this.$router.push(routes.chatRoom(id));
