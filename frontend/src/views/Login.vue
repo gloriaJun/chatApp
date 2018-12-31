@@ -14,9 +14,18 @@
       sm6
       md4
     >
+
+      <v-alert
+        :value="!!errorMessage"
+        type="error"
+      >
+        {{ errorMessage }}
+      </v-alert>
+
       <login-form
         @connect="connect"
       ></login-form>
+
     </v-flex>
   </v-layout>
   </v-container>
@@ -24,20 +33,34 @@
 
 <script>
 import types from '@/stores/types';
+import socketEvents from '@/socket';
 
-import routes from '@/constants/routes';
+import routes from '@/router/routes';
 import LoginForm from '@/components/LoginForm.vue';
 
 export default {
   components: {
     LoginForm,
   },
+  data: () => ({
+    errorMessage: '',
+  }),
   methods: {
     connect(username) {
-      this.$store.dispatch(types.LOGIN, { username });
+      const data = { username };
 
-      // after connected, go chatting room list page
-      this.$router.replace(routes.chatHome);
+      this.errorMessage = '';
+
+      socketEvents.login(data, (err) => {
+        if (err) {
+          this.errorMessage = err.message;
+        } else {
+          this.$store.dispatch(types.LOGIN, data);
+
+          // after connected, go chatting room list page
+          this.$router.replace(routes.chatHome);
+        }
+      });
     },
   },
 };

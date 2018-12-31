@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import routes from '@/constants/routes';
+import routes from '@/router/routes';
 import ChatToolbar from '@/components/ChatToolbar.vue';
 import RoomList from '@/components/RoomList.vue';
 

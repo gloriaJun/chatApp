@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import routes from '@/constants/routes';
+import routes from '@/router/routes';
 import socketEventName from '@/constants/socket-event-name';
 import types from '@/stores/types';
 

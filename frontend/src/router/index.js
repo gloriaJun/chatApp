@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import routes from './constants/routes';
+import routes from './routes';
 
-import Login from './views/Login.vue';
+import Login from '../views/Login.vue';
 
-import ChatHome from './views/ChatHome.vue';
-import ChatRoom from './views/ChatRoom.vue';
+import ChatHome from '../views/ChatHome.vue';
+import ChatRoom from '../views/ChatRoom.vue';
 
 Vue.use(Router);
 

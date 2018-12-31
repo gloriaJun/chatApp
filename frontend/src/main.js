@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import './plugins/vuetify';
-import './plugins/socket';
+import './socket';
 
 import App from './App.vue';
 import router from './router';
