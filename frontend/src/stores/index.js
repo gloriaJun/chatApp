@@ -9,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   plugins: [createLogger()],
   state: {
-    username: 'test',
+    username: '',
     rooms: [],
     messages: [],
   },
@@ -22,6 +22,9 @@ export default new Vuex.Store({
     [types.SET_USER](state, payload) {
       state.username = payload;
     },
+    [types.SET_MESSAGE](state, payload) {
+      state.messages = [...payload];
+    },
     [types.PUSH_MESSAGE](state, payload) {
       state.messages.push(payload);
     },
@@ -33,6 +36,11 @@ export default new Vuex.Store({
     [types.LOGIN]({ commit }, payload) {
       commit(types.SET_USER, payload.username);
       commit(types.SET_ROOMS, payload.rooms);
+    },
+
+    [types.LEAVE_ROOM]({ commit }, payload) {
+      commit(types.SET_ROOMS, payload);
+      commit(types.SET_MESSAGE, []);
     },
   },
 });

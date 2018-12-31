@@ -58,7 +58,7 @@ export default {
         } else {
           this.$store.dispatch(types.LOGIN, {
             ...data,
-            rooms: Array.from(result.data),
+            rooms: result.data,
           });
 
           // after connected, go chatting room list page

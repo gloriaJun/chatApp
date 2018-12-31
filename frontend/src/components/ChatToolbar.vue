@@ -11,7 +11,7 @@
     <v-toolbar-title
       class="text-xs-center"
     >
-      {{ title }}
+      {{ toolBarTitle }}
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
@@ -37,8 +37,16 @@ export default {
       default: '',
     },
   },
-  data: () => ({
-  }),
+  data() {
+    return {
+      toolBarTitle: this.title,
+    };
+  },
+  watch: {
+    title(val) {
+      this.toolBarTitle = val;
+    },
+  },
   methods: {
     search() {
       this.$emit('search');

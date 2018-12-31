@@ -4,7 +4,7 @@
   >
 
     <chat-toolbar
-      :title="`${title} : ${roomName}`"
+      :title="title"
       @search="search"
     >
       <v-btn
@@ -64,7 +64,8 @@
 
 <script>
 import routes from '@/router/routes';
-import socketEventName from '@/constants/socket-event-name';
+import socketEvents from '@/socket';
+// import socketEventName from '@/constants/socket-event-name';
 import types from '@/stores/types';
 
 import ChatToolbar from '@/components/ChatToolbar.vue';
@@ -84,10 +85,13 @@ export default {
     },
   },
   data: () => ({
-    title: 'Chatting',
     roomName: '',
+    roomMember: 0,
   }),
   computed: {
+    title() {
+      return `Chatting : ${this.roomName} (${this.roomMember})`;
+    },
     username() {
       return this.$store.getters.username;
     },
@@ -96,23 +100,27 @@ export default {
     },
   },
   created() {
-    // 채팅방에 입장하였음을 전송
-    this.$socket.emit(socketEventName.joinRoom, {
-      roomId: this.id,
-      username: this.username,
+    console.log('created');
+    // 채팅방에 입장
+    socketEvents.join(this.id, (result) => {
+      console.log('after join', result);
+      this.roomName = result.data.name;
     });
 
-    // 채팅방 접속 유저에 대한 알림
-    this.$socket.on(socketEventName.joinRoom, (data) => {
-      console.log('join', data);
+    socketEvents.registerMemberUpdate((data) => {
+      this.roomMember = data.member.length;
       this.pushMessage(data);
     });
 
     // 해당 채팅방에 대한 메시지를 응답받기 위한 이벤트 정의
-    this.$socket.on(socketEventName.chat, (data) => {
+    socketEvents.registerMessage((data) => {
       console.log('broad', data);
       this.pushMessage(data);
     });
+  },
+  beforeDestroy() {
+    console.log('destory');
+    socketEvents.unregisterEvent();
   },
   methods: {
     search() {
@@ -123,14 +131,18 @@ export default {
     },
     messageSend(message) {
       const data = {
-        username: this.username,
+        roomId: this.id,
         message,
       };
 
       this.pushMessage(data);
-      this.$socket.emit(socketEventName.chat, data);
+      socketEvents.sendMessage(data);
     },
     onClickGoRoomList() {
+      socketEvents.leave(this.id, (result) => {
+        console.log('after left', result);
+        this.$store.dispatch(types.LEAVE_ROOM, result.data);
+      });
       this.$router.push(routes.chatHome);
     },
     pushMessage(data) {
