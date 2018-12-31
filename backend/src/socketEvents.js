@@ -78,15 +78,15 @@ module.exports = function(io) {
     //     socket.broadcast.to(room).emit(socketEventName.chat, data);
     //   }
     // });
-    //
-    // socket.on('disconnect', () => {
-    //   const { username } = socket;
-    //   console.log('socket disconnected : ', username);
-    //
-    //   if (onLineUserList.includes(username)) {
-    //     onLineUserList = onLineUserList.filter(item => item !== username);
-    //   }
-    // });
+
+    socket.on('disconnect', () => {
+      const { username } = socket;
+      console.log('socket disconnected : ', username);
+
+      if (onLineUserList.includes(username)) {
+        onLineUserList = onLineUserList.filter(item => item !== username);
+      }
+    });
 
     // client.on('join', handleJoin)
     //
