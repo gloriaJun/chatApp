@@ -67,13 +67,18 @@
 ### Installation <a id="installation"></a>
 
 ```bash
-# build
-
 # run
+cd backend
+yarn start
+
+cd frontend
+yarn serve
 
 # unit test
 yarn run test:unit
 ```
+
+http://localhost:8080
 
 ### Requirement <a id="requirement"></a>
 
@@ -110,8 +115,8 @@ yarn run test:unit
 
 ##### 사용자 초대를 하고자 하는 경우
 
-#### REST-API로 구현할 부분
-- 
+- **사용자 초대** 버튼을 클릭하면, 서버에 저장되어있는 현재 접속 중인 사용자의 아이디 정보를 가져온다.
+
 
 #### 서버와의 네트워크 통신
 
@@ -132,17 +137,16 @@ With WebSockets you can establish a persistent connection, which allows for bidi
 
 #### 프론트앤드
 
-- 화면 디자인 개선
+- 채팅 화면 디자인 개선
 - 반응형 적용
+- 채팅방 검색
+- 대화내용 검색
+- 채팅방 추가
 
 #### 백앤드
 
-- Database 연동
-
-#### 아래와 같은 사용자 스토리에 대하여 구현
- 
-- 사용자가 이미 사용 중인 아이디로 접속을 시도하는 경우
-  - 서버에서 '이미 등록된 아이디 입니다'라는 메시지를 에러 코드와 함께 전달한다.
+- Database 연동 (firebase, mongodb, redis, ...)
+- 화면 리프레쉬하는 경우에, 이미 인증한 사용자 정보가 날라가지 않게 처리하기 (세션, 쿠키) 
 
 ### 기타
 
