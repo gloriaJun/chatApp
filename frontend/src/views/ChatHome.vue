@@ -34,6 +34,9 @@
 
 <script>
 import routes from '@/router/routes';
+import types from '@/stores/types';
+import socketEvents from '@/socket';
+
 import ChatToolbar from '@/components/ChatToolbar.vue';
 import RoomList from '@/components/RoomList.vue';
 
@@ -50,6 +53,18 @@ export default {
     rooms() {
       return this.$store.getters.rooms;
     },
+  },
+  created() {
+    console.log(this.$options.name, 'created');
+    // 새로운 사용자가 채팅 어플리케이션에 입장
+    socketEvents.registerUserLogin((data) => {
+      console.log('new user login to app', data);
+      this.$store.commit(types.SET_USER_LIST, data);
+    });
+  },
+  beforeDestroy() {
+    console.log(this.$options.name, 'beforeDestroy');
+    socketEvents.unregisterUserLogin();
   },
   methods: {
     onClickRoom(id) {

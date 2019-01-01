@@ -3,6 +3,7 @@ import chatRoomModel from './model/chatRoomModel';
 const EVENTS = {
   ERROR: 'error',
   LOGIN: 'login',
+  USER_LIST_UPDATE: 'userListUpdate',
 
   // join to room
   JOIN: 'join',
@@ -33,6 +34,14 @@ module.exports = function(io) {
   io.on('connection', (socket) => {
     console.log('socket connected', socket.id);
 
+    function isUserExist(username) {
+      return onLineUserList.find(obj => obj.username === username);
+    }
+
+    function updateOnlineUserList() {
+      socket.broadcast.emit(EVENTS.USER_LIST_UPDATE, onLineUserList);
+    }
+
     function broadcastMessage(data) {
       const {
         username,
@@ -55,7 +64,7 @@ module.exports = function(io) {
     socket.on(EVENTS.LOGIN, async (userInfo, cb) => {
       const { username } = userInfo;
 
-      if (onLineUserList.find(obj => obj.username === username)) {
+      if (isUserExist(username)) {
         return cb(setResultData(false, 'Already used username.'));
       }
 
@@ -65,8 +74,11 @@ module.exports = function(io) {
         username,
       });
 
+      updateOnlineUserList();
+
       return cb(setResultData(true, {
-        data: await chatRoomModel.getChatRooms(),
+        users: onLineUserList,
+        rooms: await chatRoomModel.getChatRooms(),
       }));
     });
 
@@ -125,11 +137,11 @@ module.exports = function(io) {
       const { username } = socket;
       console.log('socket disconnected : ', username);
 
-      if (onLineUserList.includes(username)) {
-        onLineUserList = onLineUserList.filter(item => item !== username);
+      if (isUserExist(username)) {
+        onLineUserList = onLineUserList.filter(item => item.username !== username);
       }
-    });
 
-    // client.on('availableUsers', handleGetAvailableUsers)
+      updateOnlineUserList();
+    });
   });
 };

@@ -24,6 +24,15 @@
       </v-btn>
     </chat-toolbar>
 
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+      right
+    >
+      hello
+    </v-navigation-drawer>
+
     <v-layout
       row
     >
@@ -86,12 +95,13 @@ export default {
     },
   },
   data: () => ({
+    drawer: false,
     roomName: '',
-    roomMember: 0,
+    roomMember: [],
   }),
   computed: {
     title() {
-      return `Chatting : ${this.roomName} (${this.roomMember})`;
+      return `Chatting : ${this.roomName} (${this.roomMember.length})`;
     },
     username() {
       return this.$store.getters.username;
@@ -101,7 +111,7 @@ export default {
     },
   },
   created() {
-    console.log('created');
+    console.log(this.$options.name, 'created');
     // 채팅방에 입장
     socketEvents.join(this.id, (result) => {
       console.log('after join', result);
@@ -109,7 +119,7 @@ export default {
     });
 
     socketEvents.registerMemberUpdate((data) => {
-      this.roomMember = data.member.length;
+      this.roomMember = data.member;
       this.pushMessage(data);
     });
 
@@ -120,15 +130,15 @@ export default {
     });
   },
   beforeDestroy() {
-    console.log('destory');
-    socketEvents.unregisterEvent();
+    console.log(this.$options.name, 'beforeDestroy');
+    socketEvents.unregisterChatRoomEvent();
   },
   methods: {
     search() {
       // this.$emit('search');
     },
     add() {
-      // this.$emit('add');
+      this.drawer = true;
     },
     sendMessage(message) {
       const data = {

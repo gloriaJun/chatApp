@@ -72,13 +72,15 @@ export default {
 
   .chat-message
     padding-top 0;
+    word-wrap: break-word;
 
   .chat-image
     margin: 0 16px;
 
   .chat-message-box
     border-color #e0e0e0 !important;
-    min-width 30%
+    border-radius: 1rem;
+    min-width 40%
     max-width 60%
     margin: 5px;
 

@@ -5,6 +5,7 @@ const socket = io(process.env.VUE_APP_SOCKET_URL);
 const EVENTS = {
   ERROR: 'error',
   LOGIN: 'login',
+  USER_LIST_UPDATE: 'userListUpdate',
 
   // join to room
   JOIN: 'join',
@@ -29,15 +30,19 @@ const socketEvents = {
   join: (roomId, callback) => socket.emit(EVENTS.JOIN, roomId, callback),
   leave: (roomId, callback) => socket.emit(EVENTS.LEAVE, roomId, callback),
 
+  sendMessage: messageInfo => socket.emit(EVENTS.MESSAGE, messageInfo),
+  sendImage: imageFile => socket.emit(EVENTS.IMAGE, imageFile),
+
   // register event for listening
-  unregisterEvent: () => {
+  unregisterUserLogin: () => socket.off(EVENTS.USER_LIST_UPDATE),
+  registerUserLogin: onUserLogined => socket.on(EVENTS.USER_LIST_UPDATE, onUserLogined),
+
+  unregisterChatRoomEvent: () => {
     socket.off(EVENTS.MEMBER_UPDATE);
     socket.off(EVENTS.MESSAGE);
   },
   registerMemberUpdate: onMemberJoined => socket.on(EVENTS.MEMBER_UPDATE, onMemberJoined),
   registerMessage: onReceiveMessage => socket.on(EVENTS.MESSAGE, onReceiveMessage),
-  sendMessage: messageInfo => socket.emit(EVENTS.MESSAGE, messageInfo),
-  sendImage: imageFile => socket.emit(EVENTS.IMAGE, imageFile),
 };
 
 export default socketEvents;
