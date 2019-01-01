@@ -1,9 +1,16 @@
 <template>
   <v-list>
+    <v-subheader
+      v-if="title"
+    >
+      {{ title }}
+    </v-subheader>
+
     <v-list-tile
       v-for="item in items"
       :key="item.id"
       avatar
+      subheader
       @click='onClickList(item)'
     >
       <v-list-tile-avatar
@@ -12,35 +19,33 @@
           <span
             class="white--text headline"
           >
-            {{ item.name.charAt(0).toUpperCase() }}
+            {{ item.username.charAt(0).toUpperCase() }}
           </span>
       </v-list-tile-avatar>
 
       <v-list-tile-content>
-        <v-list-tile-title v-html="item.name"></v-list-tile-title>
+        <v-list-tile-title v-html="item.username"></v-list-tile-title>
       </v-list-tile-content>
-
-      <v-list-tile-action>
-        <v-icon :color="item.active ? 'teal' : 'grey'">chat_bubble</v-icon>
-      </v-list-tile-action>
     </v-list-tile>
   </v-list>
 </template>
 
 <script>
 export default {
-  name: 'RoomList',
+  name: 'UserList',
   props: {
+    title: {
+      type: String,
+      default: '',
+    },
     items: {
       type: [Object, Array],
       default: () => [],
     },
   },
-  data: () => ({
-  }),
   methods: {
     onClickList(item) {
-      this.$emit('click-room', item.id);
+      this.$emit('click', item);
     },
   },
 };

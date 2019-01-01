@@ -19,10 +19,6 @@
       <v-list-tile-content>
         <v-list-tile-title v-html="item.name"></v-list-tile-title>
       </v-list-tile-content>
-
-      <v-list-tile-action>
-        <v-icon :color="item.active ? 'teal' : 'grey'">chat_bubble</v-icon>
-      </v-list-tile-action>
     </v-list-tile>
   </v-list>
 </template>

@@ -3,7 +3,6 @@ import chatRoomModel from './model/chatRoomModel';
 const EVENTS = {
   ERROR: 'error',
   LOGIN: 'login',
-  USER_LIST_UPDATE: 'userListUpdate',
 
   // join to room
   JOIN: 'join',
@@ -11,6 +10,8 @@ const EVENTS = {
   MEMBER_UPDATE: 'memberUpdate',
   MESSAGE: 'message',
   IMAGE: 'image',
+  AVAILABLE_INVITE_USERS: 'availableInviteUsers',
+  INVITE: 'invite',
 };
 
 module.exports = function(io) {
@@ -36,10 +37,6 @@ module.exports = function(io) {
 
     function isUserExist(username) {
       return onLineUserList.find(obj => obj.username === username);
-    }
-
-    function updateOnlineUserList() {
-      socket.broadcast.emit(EVENTS.USER_LIST_UPDATE, onLineUserList);
     }
 
     function broadcastMessage(data) {
@@ -70,11 +67,9 @@ module.exports = function(io) {
 
       socket.username = username;
       onLineUserList.push({
-        id: socket.id,
+        socketId: socket.id,
         username,
       });
-
-      updateOnlineUserList();
 
       return cb(setResultData(true, {
         users: onLineUserList,
@@ -133,6 +128,21 @@ module.exports = function(io) {
     socket.on(EVENTS.MESSAGE, data => broadcastMessage(data));
     socket.on(EVENTS.IMAGE, data => broadcastMessage(data));
 
+    socket.on(EVENTS.AVAILABLE_INVITE_USERS, (roomId, cb) => {
+      const member = chatRoomModel.getChatRoom(roomId).member;
+
+      return cb(setResultData(true, {
+        data: onLineUserList.filter(obj => !member.find(user => user.username === obj.username)),
+      }));
+    });
+
+    socket.on(EVENTS.INVITE, (roomId, userInfo) => {
+      console.log('invite user', roomId, userInfo);
+      socket.to(userInfo.socketId).emit(EVENTS.INVITE, {
+        roomId: roomId,
+      });
+    });
+
     socket.on('disconnect', () => {
       const { username } = socket;
       console.log('socket disconnected : ', username);
@@ -140,8 +150,6 @@ module.exports = function(io) {
       if (isUserExist(username)) {
         onLineUserList = onLineUserList.filter(item => item.username !== username);
       }
-
-      updateOnlineUserList();
     });
   });
 };

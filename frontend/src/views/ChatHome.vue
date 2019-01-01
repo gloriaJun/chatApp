@@ -24,17 +24,46 @@
       >
         <room-list
           :items="rooms"
-          @click-room="onClickRoom"
+          @click-room="joinToChatRoom"
         ></room-list>
       </v-flex>
     </v-layout>
+
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="50%">
+      <v-card
+        v-if="invitedRoomInfo"
+      >
+        <v-card-text>
+          {{ invitedRoomInfo.name }}에 초대되었습니다. 입장하시겠습니까?
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat
+            @click="closeDialog(false)"
+          >
+            Disagree
+          </v-btn>
+          <v-btn
+            color="green darken-1"
+            flat
+            @click="closeDialog(true)"
+          >
+            Agree
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
   </div>
 </template>
 
 <script>
 import routes from '@/router/routes';
-import types from '@/stores/types';
 import socketEvents from '@/socket';
 
 import ChatToolbar from '@/components/ChatToolbar.vue';
@@ -48,6 +77,8 @@ export default {
   },
   data: () => ({
     title: 'Chatting List',
+    dialog: false,
+    invitedRoomInfo: null,
   }),
   computed: {
     rooms() {
@@ -56,19 +87,26 @@ export default {
   },
   created() {
     console.log(this.$options.name, 'created');
-    // 새로운 사용자가 채팅 어플리케이션에 입장
-    socketEvents.registerUserLogin((data) => {
-      console.log('new user login to app', data);
-      this.$store.commit(types.SET_USER_LIST, data);
+    // 채팅룸 초대에 대한 이벤트 등록
+    socketEvents.registerInvite((data) => {
+      const { roomId } = data;
+      this.invitedRoomInfo = this.rooms.find(obj => obj.id === Number(roomId));
+      this.dialog = true;
     });
   },
   beforeDestroy() {
     console.log(this.$options.name, 'beforeDestroy');
-    socketEvents.unregisterUserLogin();
+    socketEvents.unregisterInvited();
   },
   methods: {
-    onClickRoom(id) {
+    joinToChatRoom(id) {
       this.$router.push(routes.chatRoom(id));
+    },
+    closeDialog(isOk) {
+      if (isOk) {
+        this.joinToChatRoom(this.invitedRoomInfo.id);
+      }
+      this.dialog = false;
     },
     search() {
       // this.$emit('search');

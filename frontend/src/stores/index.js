@@ -16,7 +16,7 @@ export default new Vuex.Store({
   },
   getters: {
     username: state => state.username,
-    userList: state => state.userList,
+    userList: state => state.userList.filter(obj => obj.username !== state.username),
     rooms: state => state.rooms,
     messages: state => state.messages,
   },

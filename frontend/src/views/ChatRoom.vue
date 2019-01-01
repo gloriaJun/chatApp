@@ -18,7 +18,7 @@
       <v-btn
         slot="append"
         icon
-        @click="add"
+        @click="inviteUser"
       >
         <v-icon>person_add</v-icon>
       </v-btn>
@@ -30,7 +30,11 @@
       temporary
       right
     >
-      hello
+      <user-list
+        :items="availableInviteUserList"
+        title="초대 가능한 사용자"
+        @click="onClickUser"
+      ></user-list>
     </v-navigation-drawer>
 
     <v-layout
@@ -80,13 +84,16 @@ import ChatToolbar from '@/components/ChatToolbar.vue';
 import ChatMessages from '@/components/ChatMessages.vue';
 import ChatTextInput from '@/components/ChatTextInput.vue';
 import ChatImageUpload from '@/components/ChatImageUpload.vue';
+import UserList from '@/components/UserList.vue';
 
 export default {
+  name: 'ChatRoom',
   components: {
     ChatToolbar,
     ChatMessages,
     ChatTextInput,
     ChatImageUpload,
+    UserList,
   },
   props: {
     id: {
@@ -98,6 +105,7 @@ export default {
     drawer: false,
     roomName: '',
     roomMember: [],
+    availableInviteUserList: [],
   }),
   computed: {
     title() {
@@ -106,15 +114,21 @@ export default {
     username() {
       return this.$store.getters.username;
     },
+    userList() {
+      return this.$store.getters.userList;
+    },
     messages() {
       return this.$store.getters.messages;
+    },
+    availableInviteUsers() {
+      return this.userList.filter(obj => !this.roomMember.includes(obj));
     },
   },
   created() {
     console.log(this.$options.name, 'created');
     // 채팅방에 입장
     socketEvents.join(this.id, (result) => {
-      console.log('after join', result);
+      console.log('after joined', result);
       this.roomName = result.data.name;
     });
 
@@ -137,8 +151,11 @@ export default {
     search() {
       // this.$emit('search');
     },
-    add() {
-      this.drawer = true;
+    inviteUser() {
+      socketEvents.availableInviteUsers(this.id, (result) => {
+        this.availableInviteUserList = result.data;
+        this.drawer = true;
+      });
     },
     sendMessage(message) {
       const data = {
@@ -172,6 +189,9 @@ export default {
         ...data,
         isOwn,
       });
+    },
+    onClickUser(item) {
+      socketEvents.inviteUser(this.id, item);
     },
   },
 };

@@ -1,36 +1,9 @@
 # Chatting App
 > 채팅 어플리케이션 구현
 
-## TODO
-
-### 2109.01.01
-- [ ] 현재 채팅방에 포함된 사용자 리스트 확인 기능
-- [ ] 사용자 초대
-- [ ] 메시지 보낸 시간 표시
-
-### 프론트앤드
-
-- [x] 로그인 페이지
-- [x] 채팅방 리스트 화면
-- [x] 채팅창 화면
-  - [ ] 현재 채팅방에 포함된 사용자 리스트 확인 기능
-  - [x] 메시지 전달 기능
-  - [x] 이미지 업로드 기능
-  - [ ] 사용자 초대 기능
-- [x] 메시지가 오면 제일 하단으로 스크롤 되도록 기능 추가
-
-### 서버 - 서버 api를 구현하면서 프론트앤드 연동 작업도 같이 할 것
-
-- [x] 로그인 api
-    - [x] 로그인 시에 store에 저장하도록 처리
-- [x] 채팅방 리스트 api
-- [x] 채팅방 접속
-- [x] 1:1 채팅 기능
-- [ ] 사용자 초대
-- [ ] 메시지 보낸 시간 표시
-
-### 오류수정
-- [x] 채팅 메시지 렌더링 시의 워닝 메시지
+## TODO 2019.01.02
+- [ ] 컴포넌트 단위테스트 작성
+- [ ] 문제해결 전략 정리
 
 ## Contents
 
@@ -60,6 +33,36 @@
 ### Project Structure <a id="structure"></a>
 
 ```bash
+├── README.md
+├── backend
+│   ├── package.json
+│   └── src
+│       ├── model
+│       ├── server.js
+│       └── socketEvents.js
+└── frontend
+    ├── babel.config.js
+    ├── package.json
+    ├── postcss.config.js
+    ├── public
+    │   ├── favicon.ico
+    │   └── index.html
+    ├── src
+    │   ├── App.vue
+    │   ├── assets
+    │   ├── components
+    │   ├── constants
+    │   ├── directives
+    │   ├── main.js
+    │   ├── plugins
+    │   ├── router
+    │   ├── socket.js
+    │   ├── stores
+    │   ├── styles
+    │   └── views
+    └── tests
+        ├── e2e
+        └── unit
 ```
 
 ### Installation <a id="installation"></a>
@@ -108,44 +111,38 @@ http://localhost:8080
 #### 채팅방에 접속한 이후
 
 - 현재 접속된 채팅방의 채팅 메시지는 vuex에서 관리한다.
+  - 채팅방을 나가면 초기화한다.
 - 메시지가 오면 제일 하단으로 화면 스크롤 처리
-  - *어떠한 기능을 이용해서 구현??*
+  - 데이타 변경이 발생하면, 스크롤 기능이 구현되도록 처리 (vue.js directive를 이용)
 
 ##### 사용자 초대를 하고자 하는 경우
 
 - **사용자 초대** 버튼을 클릭하면, 서버에 저장되어있는 현재 접속 중인 사용자의 아이디 정보를 가져온다.
+  - 초대 가능한 사용자의 경우, 현재 채팅방에 포함되어 있지 앟은 멤버를 필터링하여 전달
 
 
 #### 서버와의 네트워크 통신
 
-> 왜 아래와 같이 구분하여 구현하였는 지에 대한 배경에 대해 간략히 정리해두기...
-
 - [Socket.io](https://socket.io/)를 이용하여 서비스를 구현한다.
 
-> websocket - html5부터 지원
-> pooling 방식은 ~~~
 
-```
-Why WebSockets instead of HTTP(S)?
-With WebSockets you can establish a persistent connection, which allows for bidirectional communication between client and server. Nowadays, you will mostly find REST based APIs on the web, which are built upon HTTP. These APIs are consumed as follows: The client requests a page or resource and the server responds (request-respone). Thus, using WebSockets over HTTP can have the following advantages:
-```
-
-
-### 개선할 부분.. <a id="more"></a>
+### 개선해야하는 부분.. <a id="more"></a>
 
 #### 프론트앤드
 
-- 채팅 화면 디자인 개선
-- 반응형 적용
-- 채팅방 검색
-- 대화내용 검색
-- 채팅방 추가
+- [ ] 채팅방 검색
+- [ ] 대화내용 검색
+- [ ] 채팅방 추가
+- [ ] 현재 채팅방에 포함된 사용자 리스트 확인 기능
+- [ ] 반응형 적용
 
 #### 백앤드
 
-- Database 연동 (firebase, mongodb, redis, ...)
-- 화면 리프레쉬하는 경우에, 이미 인증한 사용자 정보가 날라가지 않게 처리하기 (세션, 쿠키) 
+- [ ] Database 연동 (firebase, mongodb, redis, ...)
 
 ### 기타
 
+- [ ] 화면 리프레쉬하는 경우에, 이미 인증한 사용자 정보가 날라가지 않게 처리하기 (세션, 쿠키) 
+  - 백앤드에서 세션을 이용해서???
+  - 아니면, 프론트에서 브라우저 쿠키에 저장해놓고, 쿠키 정보가 있으면 다시 로그인을 시도해서???
 - [ ] CI/CD 구현하기
