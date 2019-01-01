@@ -1,7 +1,9 @@
-module.exports = (Vue) => {
-  Vue.directive('auto-bottom', {
-    update: (el) => {
+import Vue from 'vue';
+
+Vue.directive('auto-scroll-bottom', {
+  update: (el) => {
+    setTimeout(() => {
       el.scrollTop = el.scrollHeight;
-    },
-  });
-};
+    }, 200);
+  },
+});

@@ -1,6 +1,5 @@
 <template>
   <v-layout
-    v-auto-bottom="items"
     class="chat-messages"
     row
     wrap

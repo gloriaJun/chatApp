@@ -30,17 +30,14 @@
       <v-flex
         xs12
       >
-        <div class="chat-messages-container">
+        <div
+          v-auto-scroll-bottom="messages"
+          class="chat-messages-container"
+        >
           <chat-messages
             :items="messages"
           ></chat-messages>
         </div>
-        <!--
-        <chat-messages
-          :items="messages"
-          class="chat-messages-container"
-        ></chat-messages>
-        -->
 
         <v-layout
           class="chat-message-input"
