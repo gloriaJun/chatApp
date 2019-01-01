@@ -1,5 +1,6 @@
 <template>
   <v-layout
+    v-auto-bottom="items"
     class="chat-messages"
     row
     wrap
@@ -23,6 +24,8 @@
 
       <v-card
         v-else
+        class="chat-message-box"
+        :class="item.isOwn ? 'chat-right' : 'chat-left'"
         flat
       >
         <v-card-title
@@ -30,7 +33,7 @@
         >
           <div
             class="grey--text"
-          >{{ !item.isOwn ? item.username : 'Me' }}</div>
+          >{{ !item.isOwn ? item.username : '' }}</div>
         </v-card-title>
 
         <v-img
@@ -67,8 +70,24 @@ export default {
 .chat-messages
   .chat-username
     padding-bottom 0;
+
   .chat-message
     padding-top 0;
+
   .chat-image
     margin: 0 16px;
+
+  .chat-message-box
+    border-color #e0e0e0 !important;
+    min-width 30%
+    max-width 60%
+    margin: 5px;
+
+    &.chat-right
+      background-color #81D4FA !important;
+      float right;
+
+    &.chat-left
+      background-color #C5E1A5 !important;
+      float left;
 </style>

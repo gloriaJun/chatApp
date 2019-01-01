@@ -6,12 +6,20 @@
 
   .chat-room-page
     .chat-messages-container
-      height calc(100vh - 50px - 65px);
-      overflow auto;
       background #eeeeee;
+      position: absolute;
+      top 50px;
+      left 0;
+      right 0;
+      bottom 75px;
+      overflow-x scroll;
 
     .chat-message-input
-      margin: 10px 0;
+      position absolute;
+      left 0;
+      right 0;
+      bottom 0px;
+      margin 10px 0;
       margin-right 15px;
 
       .chat-text-input

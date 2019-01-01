@@ -8,6 +8,10 @@ import store from './stores';
 
 import './styles/app.styl';
 
+import autoScroll from './directives/auto-scroll';
+
+Vue.use(autoScroll);
+
 Vue.config.productionTip = false;
 
 new Vue({
