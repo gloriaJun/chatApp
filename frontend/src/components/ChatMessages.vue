@@ -1,29 +1,54 @@
 <template>
-  <v-list
+  <v-layout
     class="chat-messages"
-    two-line>
-    <template v-for="(item, index) in items">
-      <v-list-tile
-        :key="index"
-        avatar
-        ripple
+    row
+    wrap
+  >
+    <v-flex
+      v-for="(item, index) in items"
+      :key="index"
+      xs12
+    >
+      <v-card
+        v-if="item.type === 'system'"
+        color="grey lighten-2"
+        flat
       >
-        <v-list-tile-content>
-          <v-list-tile-title>{{ item.username }}, {{ index }}</v-list-tile-title>
-          <v-list-tile-sub-title>{{ item.message }}</v-list-tile-sub-title>
-        </v-list-tile-content>
+        <v-card-text
+          class="grey--text"
+        >
+          {{ item.message }}
+        </v-card-text>
+      </v-card>
 
-        <v-list-tile-action>
-          <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
-        </v-list-tile-action>
+      <v-card
+        v-else
+        flat
+      >
+        <v-card-title
+          class="chat-username"
+        >
+          <div
+            class="grey--text"
+          >{{ !item.isOwn ? item.username : 'Me' }}</div>
+        </v-card-title>
 
-      </v-list-tile>
-      <v-divider
-        v-if="index + 1 < items.length"
-        :key="index"
-      ></v-divider>
-    </template>
-  </v-list>
+        <v-img
+          v-if="item.type === 'image'"
+          :src="item.imageUrl"
+          class="chat-image"
+          max-width="400px"
+          contain
+        ></v-img>
+
+        <v-card-text
+          class="chat-message"
+        >
+          {{ item.message }}
+        </v-card-text>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -35,14 +60,15 @@ export default {
       default: () => [],
     },
   },
-  data: () => ({
-  }),
-  computed: {
-  },
-  methods: {
-  },
 };
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+.chat-messages
+  .chat-username
+    padding-bottom 0;
+  .chat-message
+    padding-top 0;
+  .chat-image
+    margin: 0 16px;
 </style>

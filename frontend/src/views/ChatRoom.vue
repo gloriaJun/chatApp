@@ -42,16 +42,15 @@
           class="chat-message-input"
         >
           <v-flex xs1>
-            <v-btn
-              icon
+            <chat-image-upload
+              @upload="sendImage"
             >
-              <v-icon>add_photo_alternate</v-icon>
-            </v-btn>
+            </chat-image-upload>
           </v-flex>
           <v-flex xs11>
             <chat-text-input
               placeholder="Input Message"
-              @send="messageSend"
+              @send="sendMessage"
             ></chat-text-input>
           </v-flex>
         </v-layout>
@@ -64,19 +63,20 @@
 
 <script>
 import routes from '@/router/routes';
-import socketEvents from '@/socket';
-// import socketEventName from '@/constants/socket-event-name';
 import types from '@/stores/types';
+import socketEvents from '@/socket';
 
 import ChatToolbar from '@/components/ChatToolbar.vue';
 import ChatMessages from '@/components/ChatMessages.vue';
 import ChatTextInput from '@/components/ChatTextInput.vue';
+import ChatImageUpload from '@/components/ChatImageUpload.vue';
 
 export default {
   components: {
     ChatToolbar,
     ChatMessages,
     ChatTextInput,
+    ChatImageUpload,
   },
   props: {
     id: {
@@ -129,14 +129,25 @@ export default {
     add() {
       // this.$emit('add');
     },
-    messageSend(message) {
+    sendMessage(message) {
       const data = {
         roomId: this.id,
+        type: 'message',
         message,
       };
 
-      this.pushMessage(data);
+      this.pushMessage(data, true);
       socketEvents.sendMessage(data);
+    },
+    sendImage(imageSrc) {
+      const data = {
+        roomId: this.id,
+        type: 'image',
+        imageUrl: imageSrc,
+      };
+
+      this.pushMessage(data, true);
+      socketEvents.sendImage(data);
     },
     onClickGoRoomList() {
       socketEvents.leave(this.id, (result) => {
@@ -145,8 +156,11 @@ export default {
       });
       this.$router.push(routes.chatHome);
     },
-    pushMessage(data) {
-      this.$store.commit(types.PUSH_MESSAGE, data);
+    pushMessage(data, isOwn = false) {
+      this.$store.commit(types.PUSH_MESSAGE, {
+        ...data,
+        isOwn,
+      });
     },
   },
 };

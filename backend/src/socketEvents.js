@@ -9,6 +9,7 @@ const EVENTS = {
   LEAVE: 'leave',
   MEMBER_UPDATE: 'memberUpdate',
   MESSAGE: 'message',
+  IMAGE: 'image',
 };
 
 module.exports = function(io) {
@@ -32,6 +33,19 @@ module.exports = function(io) {
   io.on('connection', (socket) => {
     console.log('socket connected', socket.id);
 
+    function broadcastMessage(data) {
+      const {
+        username,
+        roomName,
+      } = socket;
+
+      if (roomName) {
+        socket.broadcast.to(roomName).emit(EVENTS.MESSAGE, {
+          username: username,
+          ...data,
+        });
+      }
+    }
 
     socket.on('error', function (err) {
       console.log('received error from client:', socket.id);
@@ -81,7 +95,6 @@ module.exports = function(io) {
       }));
     });
 
-
     socket.on(EVENTS.LEAVE, async (roomId, cb) => {
       const roomName = getRoomName(roomId);
 
@@ -105,13 +118,8 @@ module.exports = function(io) {
       }));
     });
 
-
-    socket.on(EVENTS.MESSAGE, (data) => {
-      const room = socket.roomName;
-      if (room) {
-        socket.broadcast.to(room).emit(EVENTS.MESSAGE, data);
-      }
-    });
+    socket.on(EVENTS.MESSAGE, data => broadcastMessage(data));
+    socket.on(EVENTS.IMAGE, data => broadcastMessage(data));
 
     socket.on('disconnect', () => {
       const { username } = socket;

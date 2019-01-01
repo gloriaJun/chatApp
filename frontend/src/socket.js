@@ -11,6 +11,7 @@ const EVENTS = {
   LEAVE: 'leave',
   MEMBER_UPDATE: 'memberUpdate',
   MESSAGE: 'message',
+  IMAGE: 'image',
 };
 
 /**
@@ -36,6 +37,7 @@ const socketEvents = {
   registerMemberUpdate: onMemberJoined => socket.on(EVENTS.MEMBER_UPDATE, onMemberJoined),
   registerMessage: onReceiveMessage => socket.on(EVENTS.MESSAGE, onReceiveMessage),
   sendMessage: messageInfo => socket.emit(EVENTS.MESSAGE, messageInfo),
+  sendImage: imageFile => socket.emit(EVENTS.IMAGE, imageFile),
 };
 
 export default socketEvents;
