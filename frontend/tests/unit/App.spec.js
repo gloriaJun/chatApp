@@ -1,19 +1,32 @@
-import { expect } from 'chai';
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
+import '@/plugins/vuetify';
 
-import Vue from 'vue';
-import Vuetify from 'vuetify';
+import App from '@/App.vue';
 
-import ChatToolbar from '@/components/ChatToolbar.vue';
+describe('App.vue', () => {
+  test('renders correctly', () => {
+    const wrapper = mount(App);
 
-Vue.use(Vuetify);
-
-describe('ChatToolbar.vue', () => {
-  it('check props - title', () => {
-    const title = 'ChatRoom';
-    const wrapper = shallowMount(ChatToolbar, {
-      propsData: { title },
-    });
-    expect(wrapper.text()).to.include(title);
+    // console.log(wrapper.find('div'));
+    expect(wrapper.element).toMatchSnapshot();
   });
+
+  // it('tag check - router-view', () => {
+  //   const wrapper = mount(App);
+  //   expect(wrapper.html()).to.include('<router-view></router-view>');
+  // });
 });
+
+
+// import { shallowMount } from '@vue/test-utils'
+// import HelloWorld from '@/components/HelloWorld.vue'
+//
+// describe('HelloWorld.vue', () => {
+//   it('renders props.msg when passed', () => {
+//     const msg = 'new message'
+//     const wrapper = shallowMount(HelloWorld, {
+//       propsData: { msg }
+//     })
+//     expect(wrapper.text()).toMatch(msg)
+//   })
+// })

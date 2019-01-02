@@ -55,7 +55,7 @@
 
 #### Testing
 
-- Mocha
+- Jest
 
 ### Project Structure <a id="structure"></a>
 
