@@ -1,9 +1,6 @@
 # Chatting App
 > 채팅 어플리케이션 구현
 
-## TODO 2019.01.02
-- [ ] 컴포넌트 단위테스트 작성
-
 ## Contents
 
 - [개발 환경](#configuration)
