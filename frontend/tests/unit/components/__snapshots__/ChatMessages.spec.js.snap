@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatMessages.vue props - items : image 1`] = `
+<div
+  class="layout chat-messages row wrap"
+>
+  <div
+    class="flex xs12"
+  >
+    <div
+      class="chat-message-box v-card v-sheet theme--light chat-left"
+    >
+      <div
+        class="v-card__title chat-username"
+      >
+        <div
+          class="grey--text"
+        >
+          user01
+        </div>
+      </div>
+       
+      <div
+        class="v-responsive v-image chat-image"
+        style="max-width: 400px;"
+      >
+        <div
+          class="v-image__image v-image__image--preload v-image__image--contain"
+          mode="in-out"
+          name="fade-transition"
+          style="background-position: center center;"
+        />
+        <div
+          class="v-responsive__content"
+        />
+      </div>
+       
+      <div
+        class="v-card__text chat-message"
+      >
+        
+        
+      
+      </div>
+    </div>
+  </div>
+</div>
+`;

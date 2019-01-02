@@ -11,6 +11,7 @@
     >
       <v-card
         v-if="item.type === 'system'"
+        class="chat-system-message"
         color="grey lighten-2"
         flat
       >

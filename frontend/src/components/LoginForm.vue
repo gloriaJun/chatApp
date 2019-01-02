@@ -28,6 +28,7 @@
 
 <script>
 export default {
+  name: 'LoginForm',
   data: () => ({
     valid: false,
     username: '',

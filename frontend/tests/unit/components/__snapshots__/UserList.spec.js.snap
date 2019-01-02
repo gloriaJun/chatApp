@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserList.vue set title 1`] = `
+<div
+  class="v-list theme--light"
+  role="list"
+>
+  <div
+    class="v-subheader theme--light"
+  >
+    
+    subTitle
+  
+  </div>
+   
+  <div
+    role="listitem"
+  >
+    <a
+      class="v-list__tile v-list__tile--link v-list__tile--avatar theme--light"
+      subheader=""
+    >
+      <div
+        class="v-list__tile__avatar"
+      >
+        <div
+          class="v-avatar indigo"
+          style="height: 40px; width: 40px;"
+        >
+          <span
+            class="white--text headline"
+          >
+            
+          U
+        
+          </span>
+        </div>
+      </div>
+       
+      <div
+        class="v-list__tile__content"
+      >
+        <div
+          class="v-list__tile__title"
+        >
+          user01
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`UserList.vue snapshot check 1`] = `
+<div
+  class="v-list theme--light"
+  role="list"
+/>
+`;
+
+exports[`UserList.vue snapshot check with items 1`] = `
+<div
+  class="v-list theme--light"
+  role="list"
+>
+  <!---->
+   
+  <div
+    role="listitem"
+  >
+    <a
+      class="v-list__tile v-list__tile--link v-list__tile--avatar theme--light"
+      subheader=""
+    >
+      <div
+        class="v-list__tile__avatar"
+      >
+        <div
+          class="v-avatar indigo"
+          style="height: 40px; width: 40px;"
+        >
+          <span
+            class="white--text headline"
+          >
+            
+          U
+        
+          </span>
+        </div>
+      </div>
+       
+      <div
+        class="v-list__tile__content"
+      >
+        <div
+          class="v-list__tile__title"
+        >
+          user01
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;

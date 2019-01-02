@@ -23,9 +23,11 @@ export default {
       default: '',
     },
   },
-  data: () => ({
-    message: '',
-  }),
+  data() {
+    return {
+      message: '',
+    };
+  },
   methods: {
     send() {
       if (this.message === '') {

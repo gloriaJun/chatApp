@@ -18,10 +18,6 @@
 <script>
 export default {
   name: 'ChatImageUpload',
-  props: {
-  },
-  data: () => ({
-  }),
   methods: {
     onClickBtn() {
       this.$refs.inputFile.click();

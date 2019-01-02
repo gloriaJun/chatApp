@@ -1,32 +1,24 @@
-import { mount } from '@vue/test-utils';
-import '@/plugins/vuetify';
+import {
+  mount,
+} from '@vue/test-utils';
+import './test-setup';
 
 import App from '@/App.vue';
 
 describe('App.vue', () => {
-  test('renders correctly', () => {
-    const wrapper = mount(App);
+  it('snapshot check', () => {
+    const wrapper = mount(App, {
+      stubs: ['router-link', 'router-view'],
+    });
 
-    // console.log(wrapper.find('div'));
-    expect(wrapper.element).toMatchSnapshot();
+    expect(wrapper.vm.$el).toMatchSnapshot();
   });
 
-  // it('tag check - router-view', () => {
-  //   const wrapper = mount(App);
-  //   expect(wrapper.html()).to.include('<router-view></router-view>');
-  // });
+  it('application id check', () => {
+    const wrapper = mount(App, {
+      stubs: ['router-link', 'router-view'],
+    });
+
+    expect(wrapper.find('div').attributes('id')).toEqual('chat-app');
+  });
 });
-
-
-// import { shallowMount } from '@vue/test-utils'
-// import HelloWorld from '@/components/HelloWorld.vue'
-//
-// describe('HelloWorld.vue', () => {
-//   it('renders props.msg when passed', () => {
-//     const msg = 'new message'
-//     const wrapper = shallowMount(HelloWorld, {
-//       propsData: { msg }
-//     })
-//     expect(wrapper.text()).toMatch(msg)
-//   })
-// })

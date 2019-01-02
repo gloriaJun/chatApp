@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RoomList.vue snapshot check with items 1`] = `
+<div
+  class="v-list theme--light"
+  role="list"
+>
+  <div
+    role="listitem"
+  >
+    <a
+      class="v-list__tile v-list__tile--link v-list__tile--avatar theme--light"
+    >
+      <div
+        class="v-list__tile__avatar"
+      >
+        <div
+          class="v-avatar indigo"
+          style="height: 40px; width: 40px;"
+        >
+          <span
+            class="white--text headline"
+          >
+            
+          N
+        
+          </span>
+        </div>
+      </div>
+       
+      <div
+        class="v-list__tile__content"
+      >
+        <div
+          class="v-list__tile__title"
+        >
+          New Year
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;

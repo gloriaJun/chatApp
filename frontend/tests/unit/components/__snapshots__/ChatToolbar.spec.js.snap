@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatToolbar.vue props - title 1`] = `
+<nav
+  class="chat-toolbar v-toolbar theme--dark amber darken-3"
+  style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);"
+>
+  <div
+    class="v-toolbar__content"
+    style="height: 50px;"
+  >
+     
+    <div
+      class="v-toolbar__title text-xs-center"
+    >
+      
+    ChatRoom
+  
+    </div>
+     
+    <div
+      class="spacer"
+    />
+     
+    <button
+      class="v-btn v-btn--icon theme--dark"
+      type="button"
+    >
+      <div
+        class="v-btn__content"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon material-icons theme--dark"
+        >
+          search
+        </i>
+      </div>
+    </button>
+     
+  </div>
+</nav>
+`;
+
+exports[`ChatToolbar.vue snapshot check 1`] = `
+<nav
+  class="chat-toolbar v-toolbar theme--dark amber darken-3"
+  style="margin-top: 0px; padding-right: 0px; padding-left: 0px; transform: translateY(0px);"
+>
+  <div
+    class="v-toolbar__content"
+    style="height: 50px;"
+  >
+     
+    <div
+      class="v-toolbar__title text-xs-center"
+    >
+      
+    
+  
+    </div>
+     
+    <div
+      class="spacer"
+    />
+     
+    <button
+      class="v-btn v-btn--icon theme--dark"
+      type="button"
+    >
+      <div
+        class="v-btn__content"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon material-icons theme--dark"
+        >
+          search
+        </i>
+      </div>
+    </button>
+     
+  </div>
+</nav>
+`;
