@@ -1,4 +1,7 @@
 # Chatting App
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/gloriaJun/chatApp.svg)](https://greenkeeper.io/)
+
 > 채팅 어플리케이션 구현
 
 ## Contents
