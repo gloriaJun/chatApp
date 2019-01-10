@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - 10
+
+branches:
+  only:
+  - develop
+
+before_install:
+  - cd frontend
+
+before_script:
+  - yarn install
+
+script:
+  - yarn build
+
+notifications:
+  email: false
+  slack:
+    rooms:
+      - glriaroom:GJpK4bqmhqF9CtV1l4qVSp6Q#devops
+    on_success: change # default : always
+    on_failure: always # default : always
