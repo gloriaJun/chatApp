@@ -1,0 +1,11 @@
+{
+  "name": "chatApp",
+  "version": "1.0.0",
+  "description": "chatting application",
+  "author": "gloriaJun",
+  "private": true,
+  "scripts": {
+    "client": "cd frontend && yarn start",
+    "server": "cd backend && yarn start"
+  }
+}
